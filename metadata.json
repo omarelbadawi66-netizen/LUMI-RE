@@ -1,0 +1,6 @@
+{
+  "name": "Lumière Beauty Center ERP",
+  "description": "Enterprise Resource Planning and management system for Lumière Beauty Center in Alexandria, Egypt. Features bilingual Arabic/English RTL support, multi-branch control, appointment booking, POS with split payments, inventory BOM recipe consumption, technician commission engine, HR & payroll, and financial reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
