@@ -14,7 +14,9 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   ShieldAlert,
-  Coins
+  Coins,
+  Printer,
+  FileText
 } from 'lucide-react';
 import { CashRegisterSession, UserRole } from '../../types/erp';
 import { useI18n } from '../../i18n/translations';
@@ -34,6 +36,7 @@ export const CashRegisterModule: React.FC<CashRegisterModuleProps> = ({
 }) => {
   const { t, isRtl } = useI18n(lang);
   const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
+  const [showZReportModal, setShowZReportModal] = useState(false);
   const [countedCash, setCountedCash] = useState<number>(cashRegister.expected_cash);
   const [closingNotes, setClosingNotes] = useState('');
   const [closeResult, setCloseResult] = useState<{ variance: number; requiresManagerApproval: boolean } | null>(null);
@@ -74,15 +77,25 @@ export const CashRegisterModule: React.FC<CashRegisterModuleProps> = ({
           </p>
         </div>
 
-        {cashRegister.status === 'open' && (
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => { setCountedCash(cashRegister.expected_cash); setIsCloseModalOpen(true); }}
-            className="px-4 py-2 bg-[#3d2027] hover:bg-[#2c141a] text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5 active:scale-98"
+            onClick={() => setShowZReportModal(true)}
+            className="px-3.5 py-2 bg-[#f4ebe2] hover:bg-[#ebdcd0] text-[#352026] text-xs font-bold rounded-xl transition-all border border-[#ebdcd0] flex items-center gap-1.5 active:scale-98"
           >
-            <Lock className="w-3.5 h-3.5 text-[#e5bda3]" />
-            <span>{t.btn_close_shift}</span>
+            <FileText className="w-3.5 h-3.5 text-[#8b5a4b]" />
+            <span>{lang === 'ar' ? 'تقرير تقفيل اليوم (Z-Report)' : 'Daily Z-Report'}</span>
           </button>
-        )}
+
+          {cashRegister.status === 'open' && (
+            <button
+              onClick={() => { setCountedCash(cashRegister.expected_cash); setIsCloseModalOpen(true); }}
+              className="px-4 py-2 bg-[#3d2027] hover:bg-[#2c141a] text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center gap-1.5 active:scale-98"
+            >
+              <Lock className="w-3.5 h-3.5 text-[#e5bda3]" />
+              <span>{t.btn_close_shift}</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Shift Financial Overview Grid */}
@@ -254,6 +267,113 @@ export const CashRegisterModule: React.FC<CashRegisterModuleProps> = ({
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Daily Closing Z-Report Modal as per Operational Study */}
+      {showZReportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-[#ebdcd0] p-5 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#ebdcd0] pb-3 no-print">
+              <h3 className="font-bold text-sm text-[#352026] flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-[#8b5a4b]" />
+                <span>{t.z_report_title}</span>
+              </h3>
+              <button 
+                onClick={() => setShowZReportModal(false)}
+                className="text-[#8c746e] hover:text-[#352026]"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Printable 80mm Z-Report Body */}
+            <div id="printable-zreport" className="text-center font-mono text-xs space-y-2 p-2 bg-white">
+              <h2 className="font-bold text-base tracking-wider">{t.receipt_title}</h2>
+              <p className="text-[10px]">{t.receipt_address}</p>
+              <div className="border-t border-b border-dashed border-gray-400 py-1.5 my-2">
+                <div className="font-bold text-xs">DAILY Z-REPORT • تقرير تقفيل اليوم</div>
+                <div className="text-[10px] text-gray-600">
+                  {new Date().toLocaleDateString('ar-EG')} • {new Date().toLocaleTimeString()}
+                </div>
+                <div className="text-[10px] text-gray-600">
+                  Branch: Saba Pasha • الإسكندرية
+                </div>
+              </div>
+
+              {/* 3 Channels Breakdown as per Study */}
+              <div className="space-y-1.5 text-start text-[11px]">
+                <div className="flex justify-between py-0.5 border-b border-gray-100">
+                  <span>1. Opening Float (فكة الدرج الثابتة):</span>
+                  <span className="font-bold">{cashRegister.opening_balance} EGP</span>
+                </div>
+                <div className="flex justify-between py-0.5 border-b border-gray-100">
+                  <span>2. Cash Sales (المبيعات النقدية):</span>
+                  <span className="font-bold text-[#2e7d32]">+{cashRegister.cash_sales} EGP</span>
+                </div>
+                <div className="flex justify-between py-0.5 border-b border-gray-100">
+                  <span>3. Cash Expenses (المصروفات النقدية):</span>
+                  <span className="font-bold text-[#d9534f]">-{cashRegister.cash_expenses} EGP</span>
+                </div>
+                <div className="flex justify-between py-0.5 font-bold border-b border-dashed border-gray-300">
+                  <span>Expected Drawer Cash (كاش الدرج):</span>
+                  <span>{cashRegister.expected_cash} EGP</span>
+                </div>
+
+                <div className="pt-1.5">
+                  <div className="text-[10px] text-gray-500 font-bold uppercase mb-1">
+                    Electronic & Online Reconciled (الدفع الإلكتروني):
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span>• Visa / Card POS (ماكينة فيزا):</span>
+                    <span className="font-bold">1,800 EGP</span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span>• InstaPay Transfers (إنستاباي):</span>
+                    <span className="font-bold text-[#8b5a4b]">3,100 EGP</span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span>• Vodafone Cash (فودافون كاش):</span>
+                    <span className="font-bold">600 EGP</span>
+                  </div>
+                </div>
+
+                <div className="border-t border-dashed border-gray-400 pt-2 space-y-1">
+                  <div className="flex justify-between font-bold text-xs">
+                    <span>TOTAL DAILY INTAKE:</span>
+                    <span>7,900 EGP</span>
+                  </div>
+                  <div className="flex justify-between text-[10px] text-[#2e7d32]">
+                    <span>Status:</span>
+                    <span>RECONCILED (مطابق ١٠٠٪)</span>
+                  </div>
+                  <div className="text-[10px] text-gray-600 pt-1 italic">
+                    * Cash to deposit in bank/safe: {cashRegister.expected_cash - 500} EGP (Keeping 500 EGP fixed float for tomorrow).
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-dashed border-gray-400 pt-2 text-[10px] text-center">
+                إشراف ومطابقة الشركاء: م. كريم منصور / د. ياسمين البدوي
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2 border-t border-[#ebdcd0] no-print">
+              <button
+                onClick={() => window.print()}
+                className="flex-1 py-2 rounded-xl bg-[#3d2027] text-white text-xs font-bold hover:bg-[#2c141a] flex items-center justify-center gap-1.5"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>{t.z_report_print}</span>
+              </button>
+              <button
+                onClick={() => setShowZReportModal(false)}
+                className="px-4 py-2 rounded-xl bg-[#f5ede4] text-[#4a2e35] text-xs font-semibold hover:bg-[#ede0d4]"
+              >
+                {t.btn_close}
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -48,7 +48,7 @@ export const HrPayrollModule: React.FC<HrPayrollModuleProps> = ({
   const attendanceList = [
     { empId: 'emp-sarah', name: 'Sarah Gamal', role: 'Senior Makeup', checkIn: '09:45', status: 'present', late: 0, overtime: 60 },
     { empId: 'emp-mariam', name: 'Mariam Soliman', role: 'Skin Specialist', checkIn: '10:05', status: 'late', late: 15, overtime: 0 },
-    { empId: 'emp-dina', name: 'Dina Fouad', role: 'Microblading', checkIn: '09:50', status: 'present', late: 0, overtime: 30 },
+    { empId: 'emp-dina', name: 'Dina Fouad', role: 'Brows & Skin', checkIn: '09:50', status: 'present', late: 0, overtime: 30 },
     { empId: 'emp-nourhan', name: 'Nourhan Tarek', role: 'Lashes & Brows', checkIn: '10:00', status: 'present', late: 0, overtime: 0 },
     { empId: 'emp-salma', name: 'Salma Ezzat', role: 'Front Desk', checkIn: '08:55', status: 'present', late: 0, overtime: 0 },
     { empId: 'emp-tamer', name: 'Tamer Nabil', role: 'Finance', checkIn: '09:00', status: 'present', late: 0, overtime: 0 }
@@ -110,7 +110,7 @@ export const HrPayrollModule: React.FC<HrPayrollModuleProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-sm text-[#352026]">
-                  {lang === 'ar' ? 'كشف رواتب شهر أكتوبر 2026 (فرع ستانلي)' : 'Payroll Statement - October 2026 (Stanley)'}
+                  {lang === 'ar' ? 'كشف رواتب شهر أكتوبر 2026 (فرع سابا باشا)' : 'Payroll Statement - October 2026 (Saba Pasha)'}
                 </h3>
                 <p className="text-[11px] text-[#8c746e]">
                   {lang === 'ar' ? 'احتساب تلقائي للعمولات المكتسبة والبدلات والخصومات' : 'Automated calculation of base salaries, earned commissions and net pay'}

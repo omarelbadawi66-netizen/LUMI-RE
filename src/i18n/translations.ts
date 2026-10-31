@@ -156,9 +156,29 @@ export const translations = {
     partner_balance: 'الرصيد الجاري للشريك',
     btn_new_drawing: 'تسجيل مسحوبات شريك',
 
+    // Operational Study & Partner Direct Management
+    crm_cosmetic_profile: 'الملف التجميلي والطبي للعميلة',
+    crm_skin_type: 'نوع البشرة',
+    crm_foundation_shade: 'درجة الفاونديشن المناسبة',
+    crm_allergies: 'حساسية البشرة وموانع الاستخدام',
+    crm_dermapen_depth: 'عمق سن الديرمابن المستخدم',
+    crm_lashes_pref: 'انحناء ونوع الرموش المفضلة',
+    crm_medical_notes: 'ملاحظات وتنبيهات طبية',
+    hardware_setup_title: 'التجهيزات الأساسية ونقطة البيع (Hardware & POS)',
+    z_report_title: 'تقرير تقفيل اليوم المالي (Z-Report)',
+    z_report_desc: 'مطابقة فورية للكاش مع رصيد الفكة الثابت، إيصالات الفيزا، وتحويلات إنستاباي وفودافون كاش',
+    z_report_print: 'طباعة تقرير Z-Report الحراري',
+    opening_float: 'رصيد فكة الدرج الافتتاحي (500 ج.م)',
+    instapay_qr_title: 'الدفع الإلكتروني عبر إنستاباي (InstaPay QR)',
+    vodafone_cash_title: 'فودافون كاش (Vodafone Cash)',
+    audit_weekly_title: 'جرد الخميس الأسبوعي للسنون والخامات',
+    audit_weekly_desc: 'مطابقة استهلاك سنون الديرمابن وعبوات السيروم مع عدد الجلسات المنفذة لمنع الهدر',
+    deposit_title: 'عربون تأكيد الحجز (Deposit)',
+    deposit_note: 'سداد عربون (20% أو 50 ج.م) عبر إنستاباي لضمان الحضور وتجنب عدم الحضور (No-Show)',
+
     // Receipt Print
     receipt_title: 'مركز لوميير للتجميل',
-    receipt_address: 'فرع الإسكندرية الرئيسي - سابا باشا، الإسكندرية',
+    receipt_address: 'فرع الإسكندرية الرئيسي - طريق الجيش ومصطفى كامل، سابا باشا، الإسكندرية',
     receipt_phone: 'هاتف: 01023456789 - 035467890',
     receipt_tax_no: 'رقم التسجيل الضريبي: 654-890-123',
     receipt_footer: 'شكراً لزيارتكِ مركز لوميير - نعتز دائماً بثقتكِ وجمالكِ!'
@@ -310,9 +330,29 @@ export const translations = {
     partner_balance: 'Current Partner Balance',
     btn_new_drawing: 'Record Partner Drawing',
 
+    // Operational Study & Partner Direct Management
+    crm_cosmetic_profile: 'Client Cosmetic & Medical Profile',
+    crm_skin_type: 'Skin Type',
+    crm_foundation_shade: 'Foundation Shade & Undertone',
+    crm_allergies: 'Skin Allergies & Contraindications',
+    crm_dermapen_depth: 'Dermapen Needle Depth (mm)',
+    crm_lashes_pref: 'Lash Curl & Style Preference',
+    crm_medical_notes: 'Medical & Aesthetic Warnings',
+    hardware_setup_title: 'Core Hardware & POS Infrastructure',
+    z_report_title: 'Daily Financial Closing (Z-Report)',
+    z_report_desc: 'Reconcile drawer cash with 500 EGP float, Visa receipts, InstaPay & Vodafone Cash transfers',
+    z_report_print: 'Print 80mm Thermal Z-Report',
+    opening_float: 'Opening Drawer Float (500 EGP)',
+    instapay_qr_title: 'Direct InstaPay QR Payment',
+    vodafone_cash_title: 'Vodafone Cash Wallet',
+    audit_weekly_title: 'Thursday Weekly Consumables Audit',
+    audit_weekly_desc: 'Reconcile physical Dermapen needles & serum vials against completed sessions in the system',
+    deposit_title: 'Appointment Booking Deposit',
+    deposit_note: '20% or 50 EGP deposit via InstaPay to prevent No-Shows and lock calendar slots',
+
     // Receipt Print
     receipt_title: 'LUMIÈRE BEAUTY CENTER',
-    receipt_address: 'Alexandria Main Branch - Saba Pasha, Alexandria',
+    receipt_address: 'Alexandria Main Branch - Army Rd & Mostafa Kamel St., Saba Pasha, Alexandria',
     receipt_phone: 'Tel: 01023456789 - 035467890',
     receipt_tax_no: 'Tax Registration: 654-890-123',
     receipt_footer: 'Thank you for visiting Lumière! We cherish your beauty and trust.'

@@ -17,7 +17,8 @@ import {
   Calendar,
   X,
   CreditCard,
-  ChevronRight
+  ChevronRight,
+  AlertTriangle
 } from 'lucide-react';
 import { Customer, Appointment } from '../../types/erp';
 import { useI18n } from '../../i18n/translations';
@@ -277,6 +278,74 @@ export const CustomersModule: React.FC<CustomersModuleProps> = ({
                 <p className="text-[11px] text-[#715c61] italic pt-1">
                   "{selectedCustomer.notes}"
                 </p>
+              )}
+            </div>
+
+            {/* Cosmetic & Medical Profile Card from Operational Study */}
+            <div className="p-4 bg-gradient-to-br from-[#fcf7f3] to-[#faf1eb] border border-[#ebd8cb] rounded-2xl space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#8b5a4b]" />
+                  <span className="font-bold text-xs text-[#2e191e]">
+                    {t.crm_cosmetic_profile}
+                  </span>
+                </div>
+                <span className="text-[10px] font-semibold bg-[#8b5a4b]/10 text-[#8b5a4b] px-2 py-0.5 rounded-full">
+                  {lang === 'ar' ? 'سري وتجميلي' : 'Confidential Beauty Profile'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                {/* Foundation Shade */}
+                <div className="bg-white p-2.5 rounded-xl border border-[#ebdcd0]">
+                  <span className="text-[10px] font-bold text-[#8c746e] block">
+                    {t.crm_foundation_shade}
+                  </span>
+                  <span className="font-bold text-[#2e191e] text-xs">
+                    {selectedCustomer.cosmetic_profile?.foundation_shade || (lang === 'ar' ? 'لم يُحدد بعد' : 'Not recorded')}
+                  </span>
+                </div>
+
+                {/* Dermapen Depth */}
+                <div className="bg-white p-2.5 rounded-xl border border-[#ebdcd0]">
+                  <span className="text-[10px] font-bold text-[#8c746e] block">
+                    {t.crm_dermapen_depth}
+                  </span>
+                  <span className="font-bold text-[#b07447] text-xs">
+                    {selectedCustomer.cosmetic_profile?.dermapen_depth || (lang === 'ar' ? '1.0mm (الافتراضي)' : '1.0mm standard')}
+                  </span>
+                </div>
+
+                {/* Skin Allergies */}
+                <div className="bg-white p-2.5 rounded-xl border border-[#ebdcd0]">
+                  <span className="text-[10px] font-bold text-[#d32f2f] block">
+                    {t.crm_allergies}
+                  </span>
+                  <span className="text-[11px] text-[#715c61]">
+                    {selectedCustomer.cosmetic_profile?.allergies || (lang === 'ar' ? 'لا توجد حساسية معروفة' : 'No known allergies')}
+                  </span>
+                </div>
+
+                {/* Lash Preference */}
+                <div className="bg-white p-2.5 rounded-xl border border-[#ebdcd0]">
+                  <span className="text-[10px] font-bold text-[#8c746e] block">
+                    {t.crm_lashes_pref}
+                  </span>
+                  <span className="text-[11px] text-[#2e191e] font-semibold">
+                    {selectedCustomer.cosmetic_profile?.preferred_lashes || (lang === 'ar' ? 'طبيعي كلاسيك' : 'Natural Classic')}
+                  </span>
+                </div>
+              </div>
+
+              {/* Medical Warnings / Retinol Alert */}
+              {selectedCustomer.cosmetic_profile?.medical_notes && (
+                <div className="p-2.5 bg-[#fff8f7] border border-[#f5c6cb] rounded-xl text-xs flex items-start gap-2 text-[#721c24]">
+                  <AlertTriangle className="w-4 h-4 text-[#d32f2f] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block text-[11px]">{t.crm_medical_notes}:</span>
+                    <span className="text-[11px]">{selectedCustomer.cosmetic_profile.medical_notes}</span>
+                  </div>
+                </div>
               )}
             </div>
 

@@ -18,7 +18,8 @@ import {
   XCircle,
   AlertCircle,
   Filter,
-  CheckSquare
+  CheckSquare,
+  MessageCircle
 } from 'lucide-react';
 import { Appointment, Customer, Employee, Service } from '../../types/erp';
 import { useI18n } from '../../i18n/translations';
@@ -282,10 +283,31 @@ export const AppointmentsModule: React.FC<AppointmentsModuleProps> = ({
                   }`}>
                     {appt.payment_status === 'paid' ? (lang === 'ar' ? 'تم الدفع بالكامل' : 'Paid in Full') : (lang === 'ar' ? 'بانتظار السداد' : 'Payment Pending')}
                   </div>
+                  {appt.deposit_amount ? (
+                    <span className="text-[10px] block font-bold text-[#8b5a4b] mt-0.5">
+                      {lang === 'ar' ? `عربون: ${appt.deposit_amount} ج.م (${appt.deposit_method?.toUpperCase()})` : `Deposit: ${appt.deposit_amount} EGP (${appt.deposit_method})`}
+                    </span>
+                  ) : null}
                 </div>
 
                 {/* Workflow Status Actions */}
                 <div className="flex items-center gap-1.5 flex-wrap">
+                  {/* WhatsApp Deposit / Confirmation Link */}
+                  <a
+                    href={`https://wa.me/2${appt.customer_phone}?text=${encodeURIComponent(
+                      lang === 'ar'
+                        ? `أهلاً بكِ في مركز لوميير للتجميل (فرع سابا باشا)! موعدكِ مسجل يوم ${appt.date} الساعة ${appt.start_time} لجلسة ${appt.service_name_ar}. لتأكيد الحجز نرجو تحويل العربون (إنستاباي على: lumiere.alex@instapay). يسعدنا تشريفكِ!`
+                        : `Hello from Lumière Beauty Center (Saba Pasha Branch)! Your booking is on ${appt.date} at ${appt.start_time} for ${appt.service_name_en}. To confirm, please transfer deposit via InstaPay: lumiere.alex@instapay.`
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-2 py-1.5 bg-[#eef8f1] hover:bg-[#d7f1de] text-[#1e8e3e] text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors"
+                    title={lang === 'ar' ? 'مراسلة عبر واتساب لتأكيد الحجز والعربون' : 'WhatsApp Deposit Reminder'}
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
+                  </a>
+
                   {appt.status === 'confirmed' && (
                     <button
                       onClick={() => onUpdateStatus(appt.id, 'checked_in')}

@@ -90,7 +90,7 @@ export const FinancePartnersModule: React.FC<FinancePartnersModuleProps> = ({
     e.preventDefault();
     if (expAmount <= 0) return;
     onAddExpense({
-      branch_id: 'branch-stanley',
+      branch_id: 'branch-sabapasha',
       category: expCategory,
       amount: expAmount,
       payment_method: expMethod,
@@ -229,7 +229,7 @@ export const FinancePartnersModule: React.FC<FinancePartnersModuleProps> = ({
                 {lang === 'ar' ? 'قائمة الأرباح والخسائر التقديرية - أكتوبر 2026' : 'Profit & Loss Statement - October 2026'}
               </h3>
               <p className="text-[11px] text-[#8c746e]">
-                {lang === 'ar' ? 'فرع الإسكندرية الرئيسي (ستانلي)' : 'Alexandria Main Branch (Stanley)'}
+                {lang === 'ar' ? 'فرع الإسكندرية الرئيسي (سابا باشا)' : 'Alexandria Main Branch (Saba Pasha)'}
               </p>
             </div>
             <span className="text-xs font-bold text-[#2e7d32] bg-[#eef8f1] px-3 py-1 rounded-xl">
@@ -281,7 +281,7 @@ export const FinancePartnersModule: React.FC<FinancePartnersModuleProps> = ({
                 <span>-{plData.totalOperatingExpenses.toLocaleString()} {t.currency}</span>
               </div>
               <div className="flex justify-between text-[#715c61] pl-4 rtl:pr-4">
-                <span>Facility Rent (إيجار مقر ستانلي)</span>
+                <span>Facility Rent (إيجار مقر سابا باشا)</span>
                 <span>-{plData.operatingExpenses.rent.toLocaleString()} {t.currency}</span>
               </div>
               <div className="flex justify-between text-[#715c61] pl-4 rtl:pr-4">

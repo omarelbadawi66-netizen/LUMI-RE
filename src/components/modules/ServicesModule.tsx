@@ -35,6 +35,7 @@ export const ServicesModule: React.FC<ServicesModuleProps> = ({
   const categories = [
     { id: 'all', labelEn: 'All Services', labelAr: 'جميع الخدمات' },
     { id: 'makeup', labelEn: 'Makeup', labelAr: 'المكياج والسواريه' },
+    { id: 'dermapen', labelEn: 'Dermapen & Skin', labelAr: 'الديرمابن ونضارة البشرة' },
     { id: 'deep_facial', labelEn: 'Facial & Skin', labelAr: 'العناية بالبشرة والتنظيف' },
     { id: 'lashes', labelEn: 'Lashes & Brows', labelAr: 'الرموش وتنسيق الحواجب' },
     { id: 'hair_styling', labelEn: 'Hair Styling', labelAr: 'تصفيف الشعر' }
@@ -43,6 +44,7 @@ export const ServicesModule: React.FC<ServicesModuleProps> = ({
   const filteredServices = services.filter(s => {
     if (selectedCategory === 'all') return true;
     if (selectedCategory === 'makeup') return s.category === 'makeup' || s.category === 'soft_makeup';
+    if (selectedCategory === 'dermapen') return s.category === 'dermapen';
     if (selectedCategory === 'deep_facial') return s.category === 'deep_facial' || s.category === 'basic_facial' || s.category === 'skin_prep';
     if (selectedCategory === 'lashes') return s.category === 'lashes' || s.category === 'brows' || s.category === 'eyebrows_styling';
     return s.category === selectedCategory;

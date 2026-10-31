@@ -33,7 +33,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
   onAdjustStock
 }) => {
   const { t, isRtl } = useI18n(lang);
-  const [activeTab, setActiveTab] = useState<'products' | 'movements'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'movements' | 'audit'>('products');
   const [searchQuery, setSearchQuery] = useState('');
   const [showLowStockOnly, setShowLowStockOnly] = useState(false);
 
@@ -113,6 +113,14 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               }`}
             >
               {lang === 'ar' ? 'سجل الحركات (Ledger)' : 'Movements Ledger'}
+            </button>
+            <button
+              onClick={() => setActiveTab('audit')}
+              className={`px-3 py-1 rounded-lg transition-all ${
+                activeTab === 'audit' ? 'bg-[#3d2027] text-white shadow-xs' : 'text-[#4a2e35]'
+              }`}
+            >
+              {lang === 'ar' ? 'جرد الخميس (السنون والخامات)' : 'Thursday Audit'}
             </button>
           </div>
         </div>
@@ -261,6 +269,117 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 )}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+
+      {/* Thursday Weekly Consumables Audit as per Operational Study */}
+      {activeTab === 'audit' && (
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-[#3d2027] to-[#5b323c] text-white p-5 rounded-2xl border border-[#4d2831] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold bg-[#e5bda3]/25 text-[#ffdcc7] px-2.5 py-0.5 rounded-full">
+                  {lang === 'ar' ? 'نظام رقابة الهدر ومنع التسريب' : 'Zero-Wastage Governance'}
+                </span>
+                <span className="text-xs text-[#e8ded6]">
+                  {lang === 'ar' ? 'خميس كل أسبوع' : 'Every Thursday'}
+                </span>
+              </div>
+              <h3 className="font-serif-title text-lg font-bold mt-1 text-white">
+                {t.audit_weekly_title}
+              </h3>
+              <p className="text-xs text-[#eedfd8] max-w-xl">
+                {t.audit_weekly_desc}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold bg-[#2e7d32] text-white px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xs">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>{lang === 'ar' ? 'الجرد مطابق ١٠٠٪' : '100% Balanced'}</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-[#ebdcd0] p-4.5 shadow-2xs space-y-4">
+            <h4 className="font-bold text-xs text-[#352026] uppercase">
+              {lang === 'ar' ? 'جدول مطابقة خامات الديرمابن والرموش مع الجلسات المنفذة' : 'Consumables vs Completed Sessions Audit Table'}
+            </h4>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-start">
+                <thead>
+                  <tr className="border-b border-[#ebdcd0] text-[11px] font-bold text-[#8c746e] uppercase">
+                    <th className="py-2.5 px-3 text-start">{lang === 'ar' ? 'الصنف الخاضع للرقابة' : 'Monitored Item'}</th>
+                    <th className="py-2.5 px-3 text-center">{lang === 'ar' ? 'الرصيد الافتتاحي' : 'Opening'}</th>
+                    <th className="py-2.5 px-3 text-center">{lang === 'ar' ? 'الجلسات المنفذة بالسيستم' : 'System Sessions'}</th>
+                    <th className="py-2.5 px-3 text-center">{lang === 'ar' ? 'الرصيد المتوقع دفترياً' : 'Expected Stock'}</th>
+                    <th className="py-2.5 px-3 text-center">{lang === 'ar' ? 'العد الفعلي بالدرج' : 'Physical Count'}</th>
+                    <th className="py-2.5 px-3 text-center">{lang === 'ar' ? 'الفارق / الهدر' : 'Discrepancy'}</th>
+                    <th className="py-2.5 px-3 text-end">{lang === 'ar' ? 'حالة المطابقة' : 'Status'}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#f5ede4]">
+                  <tr className="hover:bg-[#fdfaf7]">
+                    <td className="py-3 px-3 font-bold text-[#2e191e]">
+                      {lang === 'ar' ? 'سنون ديرمابن معقمة ومغلفة (12/36 Pin)' : 'Sterile Dermapen Cartridges (12/36 Pin)'}
+                    </td>
+                    <td className="py-3 px-3 text-center font-bold">50 {lang === 'ar' ? 'سن' : 'pcs'}</td>
+                    <td className="py-3 px-3 text-center text-[#8b5a4b] font-bold">6 {lang === 'ar' ? 'جلسات' : 'sessions'}</td>
+                    <td className="py-3 px-3 text-center font-bold">44 {lang === 'ar' ? 'سن' : 'pcs'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">44 {lang === 'ar' ? 'سن' : 'pcs'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">0 ({lang === 'ar' ? 'لا يوجد هدر' : 'Zero Waste'})</td>
+                    <td className="py-3 px-3 text-end">
+                      <span className="text-[10px] font-bold bg-[#eef8f1] text-[#1e8e3e] px-2.5 py-0.5 rounded-full">
+                        {lang === 'ar' ? 'مطابق تماماً' : 'Matched'}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-[#fdfaf7]">
+                    <td className="py-3 px-3 font-bold text-[#2e191e]">
+                      {lang === 'ar' ? 'أمبولات سيروم ميزوثيرابي نضارة 10ml' : 'Meso-Cocktail Rejuvenation Serum 10ml'}
+                    </td>
+                    <td className="py-3 px-3 text-center font-bold">20 {lang === 'ar' ? 'عبوة' : 'vials'}</td>
+                    <td className="py-3 px-3 text-center text-[#8b5a4b] font-bold">2 {lang === 'ar' ? 'عبوات' : 'vials'}</td>
+                    <td className="py-3 px-3 text-center font-bold">18 {lang === 'ar' ? 'عبوة' : 'vials'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">18 {lang === 'ar' ? 'عبوة' : 'vials'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">0 ({lang === 'ar' ? 'لا يوجد هدر' : 'Zero Waste'})</td>
+                    <td className="py-3 px-3 text-end">
+                      <span className="text-[10px] font-bold bg-[#eef8f1] text-[#1e8e3e] px-2.5 py-0.5 rounded-full">
+                        {lang === 'ar' ? 'مطابق تماماً' : 'Matched'}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-[#fdfaf7]">
+                    <td className="py-3 px-3 font-bold text-[#2e191e]">
+                      {lang === 'ar' ? 'رموش حريرية طبيعية 3D (زوج)' : 'Silk 3D Mink Lashes (Pair)'}
+                    </td>
+                    <td className="py-3 px-3 text-center font-bold">15 {lang === 'ar' ? 'زوج' : 'pairs'}</td>
+                    <td className="py-3 px-3 text-center text-[#8b5a4b] font-bold">7 {lang === 'ar' ? 'جلسات' : 'sessions'}</td>
+                    <td className="py-3 px-3 text-center font-bold">8 {lang === 'ar' ? 'أزواج' : 'pairs'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">8 {lang === 'ar' ? 'أزواج' : 'pairs'}</td>
+                    <td className="py-3 px-3 text-center font-bold text-[#2e7d32]">0 ({lang === 'ar' ? 'لا يوجد هدر' : 'Zero Waste'})</td>
+                    <td className="py-3 px-3 text-end">
+                      <span className="text-[10px] font-bold bg-[#fff0f0] text-[#d32f2f] px-2.5 py-0.5 rounded-full">
+                        {lang === 'ar' ? 'طلب شراء فوري' : 'Reorder Needed'}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="p-3 bg-[#fcfaf7] border border-[#ebdcd0] rounded-xl flex items-center justify-between text-xs">
+              <span className="text-[#715c61]">
+                {lang === 'ar' ? 'اعتماد ومطابقة الشركاء: م. كريم منصور / د. ياسمين البدوي' : 'Partner Sign-off: Eng. Karim Mansour / Dr. Yasmine El-Badawi'}
+              </span>
+              <span className="font-bold text-[#8b5a4b]">
+                {lang === 'ar' ? 'فرع الإسكندرية - سابا باشا الرئيسي' : 'Alexandria - Saba Pasha Main Branch'}
+              </span>
+            </div>
           </div>
         </div>
       )}

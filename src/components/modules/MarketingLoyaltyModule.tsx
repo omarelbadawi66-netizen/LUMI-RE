@@ -44,7 +44,7 @@ export const MarketingLoyaltyModule: React.FC<MarketingLoyaltyModuleProps> = ({ 
     },
     {
       id: 'cmp-2',
-      name: 'Microblading Natural Look TikTok Campaign',
+      name: 'Dermapen & Skin Glow TikTok Campaign',
       channel: 'tiktok',
       start_date: '2026-10-10',
       end_date: '2026-10-31',

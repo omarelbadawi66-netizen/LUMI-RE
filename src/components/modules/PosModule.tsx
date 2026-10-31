@@ -638,6 +638,21 @@ export const PosModule: React.FC<PosModuleProps> = ({
                 </div>
               </div>
 
+              {/* InstaPay QR Box for quick scan as per operational study */}
+              <div className="border border-dashed border-gray-400 p-2 rounded my-2 text-center bg-gray-50">
+                <span className="text-[10px] font-bold block uppercase tracking-wider">
+                  INSTAPAY EGYPT • انستاباي
+                </span>
+                <span className="text-[9px] block text-gray-600 font-mono">
+                  IPA: lumiere.alex@instapay
+                </span>
+                <div className="inline-block p-1 bg-white border border-gray-300 rounded mt-1">
+                  <div className="w-14 h-14 bg-[#2d1a1e] rounded flex items-center justify-center text-white text-[8px] font-bold text-center leading-tight">
+                    [QR]<br/>INSTAPAY
+                  </div>
+                </div>
+              </div>
+
               <div className="border-t border-dashed border-gray-400 pt-2 text-[10px] text-center">
                 {t.receipt_footer}
               </div>

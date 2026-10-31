@@ -100,6 +100,16 @@ export type CustomerSource =
   | 'existing'
   | 'other';
 
+export interface CosmeticProfile {
+  skin_type?: 'oily' | 'dry' | 'combination' | 'normal' | 'sensitive';
+  foundation_shade?: string; // e.g., "MAC NC25", "Estee Lauder 2W1"
+  allergies?: string; // e.g., "حساسية من عطور الفيشال، موانع صبغة"
+  dermapen_depth?: string; // e.g., "1.5mm للندبات و 0.75mm للجبهة"
+  preferred_lashes?: string; // e.g., "Classic Silk 10mm"
+  medical_notes?: string; // e.g., "عدم استخدام ريتينول قبل 5 أيام من الجلسة"
+  consultation_notes?: string;
+}
+
 export interface Customer {
   id: string;
   code: string;
@@ -122,6 +132,7 @@ export interface Customer {
   last_visit?: string;
   created_at: string;
   branch_id: string;
+  cosmetic_profile?: CosmeticProfile;
 }
 
 export interface CustomerTimelineEvent {
@@ -145,6 +156,7 @@ export type ServiceCategory =
   | 'lashes'
   | 'basic_facial'
   | 'deep_facial'
+  | 'dermapen'
   | 'skin_prep'
   | 'hair_styling'
   | 'packages'
@@ -211,6 +223,10 @@ export interface Appointment {
   net_price: number;
   status: AppointmentStatus;
   payment_status: PaymentStatus;
+  deposit_amount?: number;
+  deposit_method?: 'instapay' | 'vodafone_cash' | 'cash' | 'card';
+  deposit_paid?: boolean;
+  deposit_reference?: string;
   notes?: string;
   created_at: string;
   completed_at?: string;
@@ -292,6 +308,27 @@ export interface CashRegisterSession {
   variance?: number;
   notes?: string;
   approved_by?: string;
+}
+
+export interface ZReport {
+  id: string;
+  session_id: string;
+  branch_id: string;
+  date: string;
+  closed_at: string;
+  closed_by: string;
+  opening_float: number; // e.g. 500 EGP فكة
+  cash_sales: number;
+  cash_expenses: number;
+  expected_cash_drawer: number;
+  actual_cash_counted: number;
+  cash_variance: number;
+  card_sales: number;
+  instapay_sales: number;
+  vodafone_cash_sales: number;
+  total_revenue: number;
+  total_transactions: number;
+  notes?: string;
 }
 
 export interface Product {

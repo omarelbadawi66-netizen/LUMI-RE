@@ -145,8 +145,8 @@ export const initialEmployees: Employee[] = [
     full_name: 'Dina Fouad',
     phone: '01099887766',
     email: 'dina@lumiere.com',
-    job_title_en: 'Microblading & Brows Artist',
-    job_title_ar: 'أخصائية مايكروبليدنج وتحديد حواجب',
+    job_title_en: 'Brows & Skin Specialist',
+    job_title_ar: 'أخصائية تشكيل حواجب وعناية بالبشرة',
     department: 'Brows/Lashes',
     branch_id: 'branch-sabapasha',
     employment_type: 'technician',
@@ -155,7 +155,7 @@ export const initialEmployees: Employee[] = [
     commission_model: 'hybrid',
     commission_default_rate: 40,
     status: 'active',
-    skills: ['Microblading', 'Eyebrow Styling', 'Microshading']
+    skills: ['Eyebrow Styling', 'Brow Lamination', 'Facial Care']
   },
   {
     id: 'emp-nourhan',
@@ -278,6 +278,29 @@ export const initialServices: Service[] = [
       { product_id: 'prod-scrub', quantity: 15, unit: 'g' },
       { product_id: 'prod-cotton', quantity: 3, unit: 'pieces' },
       { product_id: 'prod-gloves', quantity: 1, unit: 'pairs' }
+    ]
+  },
+  {
+    id: 'serv-dermapen',
+    code: 'SRV-DERM-01',
+    name_en: 'Dermapen Skin Rejuvenation',
+    name_ar: 'جلسة ديرمابن نضارة ومسام (Dermapen)',
+    category: 'dermapen',
+    description_en: 'Microneedling skin therapy tailored with depth settings (0.5mm - 1.5mm) and sterile meso-cocktail serum.',
+    description_ar: 'جلسة نضارة وتحفيز كولاجين بأحدث جهاز ديرمابن مع ضبط العمق وسيروم ميزوثيرابي معقم.',
+    duration_minutes: 60,
+    price: 900,
+    cost: 110,
+    tax_rate: 0,
+    commission_type: 'percentage',
+    commission_percentage: 35,
+    required_skill: 'Dermapen & Skin Care',
+    is_active: true,
+    recipe_items: [
+      { product_id: 'prod-dermapen-needle', quantity: 1, unit: 'pieces' },
+      { product_id: 'prod-hyaluronic-serum', quantity: 1, unit: 'pieces' },
+      { product_id: 'prod-gloves', quantity: 1, unit: 'pairs' },
+      { product_id: 'prod-cotton', quantity: 4, unit: 'pieces' }
     ]
   },
   {
@@ -504,6 +527,42 @@ export const initialProducts: Product[] = [
     min_stock: 100,
     max_stock: 2000,
     branch_id: 'branch-sabapasha'
+  },
+  {
+    id: 'prod-dermapen-needle',
+    sku: 'LUM-DERM-NDL12',
+    barcode: '622100000011',
+    name_en: 'Sterile Dermapen Cartridge 12/36-Pin',
+    name_ar: 'سن ديرمابن معقم ومغلف ١٢/٣٦ إبرة (قطعة)',
+    category: 'Dermapen Consumables',
+    brand: 'Dr. Pen Medical',
+    unit: 'pieces',
+    purchase_cost: 25,
+    selling_price: 80,
+    current_stock: 50, // 50 sterile needles as specified in the study
+    min_stock: 15,
+    max_stock: 200,
+    branch_id: 'branch-sabapasha',
+    batch_number: 'DP-2026-08',
+    expiry_date: '2028-12-31'
+  },
+  {
+    id: 'prod-hyaluronic-serum',
+    sku: 'LUM-DERM-SRM20',
+    barcode: '622100000012',
+    name_en: 'Meso-Cocktail Rejuvenation Serum 10ml Vials',
+    name_ar: 'أمبولات سيروم ميزوثيرابي نضارة ١٠ مل (عبوة)',
+    category: 'Dermapen Consumables',
+    brand: 'MCCM Medical Cosmetics',
+    unit: 'pieces',
+    purchase_cost: 65,
+    selling_price: 150,
+    current_stock: 20, // 20 serum vials as specified in the study
+    min_stock: 5,
+    max_stock: 100,
+    branch_id: 'branch-sabapasha',
+    batch_number: 'MC-2026-05',
+    expiry_date: '2028-06-30'
   }
 ];
 
@@ -530,7 +589,16 @@ export const initialCustomers: Customer[] = [
     visits_count: 5,
     last_visit: '2026-10-25',
     created_at: '2026-06-15T10:00:00Z',
-    branch_id: 'branch-sabapasha'
+    branch_id: 'branch-sabapasha',
+    cosmetic_profile: {
+      skin_type: 'combination',
+      foundation_shade: 'MAC Studio Fix NC20 / Dior 1N',
+      allergies: 'خالية من الحساسية - تفضل لمسة نهائية مخملية Matte',
+      dermapen_depth: 'غير مطبق - مكياج عروس',
+      preferred_lashes: 'Full 3D Silk Mink Lashes',
+      medical_notes: 'جلسة نضارة وتحضير بشرة سريعة قبل المكياج بيومين',
+      consultation_notes: 'تم اعتماد مكياج الزفاف الملكي مع رموش 3D وتثبيت ٢٤ ساعة.'
+    }
   },
   {
     id: 'cust-2',
@@ -545,15 +613,24 @@ export const initialCustomers: Customer[] = [
     preferred_language: 'ar',
     preferred_technician_id: 'emp-mariam',
     source: 'referral',
-    notes: 'Regular monthly deep facial client. Always books on Thursdays.',
-    tags: ['Regular', 'Skin Care'],
+    notes: 'Regular monthly deep facial & Dermapen client. Always books on Thursdays.',
+    tags: ['Regular', 'Skin Care', 'Dermapen'],
     status: 'active',
     loyalty_points: 60,
     total_spent: 4200,
     visits_count: 4,
     last_visit: '2026-10-18',
     created_at: '2026-07-02T11:30:00Z',
-    branch_id: 'branch-sabapasha'
+    branch_id: 'branch-sabapasha',
+    cosmetic_profile: {
+      skin_type: 'oily',
+      foundation_shade: 'Estee Lauder 2W1 Dawn',
+      allergies: 'حساسية طفيفة من العطور الكحولية في منتجات البشرة',
+      dermapen_depth: '1.25mm للخدود و 0.75mm للجبهة',
+      preferred_lashes: 'Natural Classic 10mm',
+      medical_notes: 'تم التأكد من إيقاف الريتينول قبل ٥ أيام من موعد الديرمابن',
+      consultation_notes: 'جلسة ديرمابن لتحفيز الكولاجين وعلاج المسام مع أمبولات هيالورونيك.'
+    }
   },
   {
     id: 'cust-3',
@@ -568,15 +645,24 @@ export const initialCustomers: Customer[] = [
     preferred_language: 'en',
     preferred_technician_id: 'emp-dina',
     source: 'tiktok',
-    notes: 'Had microblading touch-up scheduled. Prefers English communication.',
-    tags: ['Microblading', 'Smouha'],
+    notes: 'Skin preparation and Soft Glam Soirée Makeup scheduled. Prefers English communication.',
+    tags: ['Soft Glam', 'Brows', 'Smouha'],
     status: 'active',
     loyalty_points: 90,
     total_spent: 6400,
     visits_count: 3,
     last_visit: '2026-10-12',
     created_at: '2026-08-10T14:15:00Z',
-    branch_id: 'branch-sabapasha'
+    branch_id: 'branch-sabapasha',
+    cosmetic_profile: {
+      skin_type: 'sensitive',
+      foundation_shade: 'NARS Sheer Glow Deauville',
+      allergies: 'حساسية من صبغات الأمونيا ومعطرات الفيشال الصناعية',
+      dermapen_depth: '1.0mm مع سيروم ميزو مهدئ للبشرة الحساسة',
+      preferred_lashes: 'Natural Lash Lift only',
+      medical_notes: 'ضرورة تطبيق واقي شمس فيزيائي 50+ وتجنب الحرارة المباشرة',
+      consultation_notes: 'تفضل مكياج سواريه هادئ يركز على رسمة العين بدون فاونديشن ثقيل.'
+    }
   },
   {
     id: 'cust-4',
@@ -590,15 +676,24 @@ export const initialCustomers: Customer[] = [
     preferred_language: 'ar',
     preferred_technician_id: 'emp-nourhan',
     source: 'walk_in',
-    notes: 'Walk-in for lashes and brow lamination.',
-    tags: ['Walk-in', 'Lashes'],
+    notes: 'Walk-in for lashes and brow styling.',
+    tags: ['Walk-in', 'Lashes', 'Saba Pasha'],
     status: 'active',
     loyalty_points: 25,
     total_spent: 1800,
     visits_count: 2,
     last_visit: '2026-10-22',
     created_at: '2026-09-01T16:00:00Z',
-    branch_id: 'branch-sabapasha'
+    branch_id: 'branch-sabapasha',
+    cosmetic_profile: {
+      skin_type: 'normal',
+      foundation_shade: 'Huda Beauty Faux Filter 210B Chai',
+      allergies: 'لا توجد حساسية معروفة',
+      dermapen_depth: '0.5mm نضارة سطحية',
+      preferred_lashes: 'Wispy Volume Lash Lift',
+      medical_notes: 'لا توجد ملاحظات طبية',
+      consultation_notes: 'رفع وتكثيف رموش بالكيراتين الطبيعي بدون تركيب رموش صناعية.'
+    }
   }
 ];
 
@@ -626,7 +721,11 @@ export const initialAppointments: Appointment[] = [
     net_price: 1700,
     status: 'in_service',
     payment_status: 'paid',
-    notes: 'Trial bridal look before wedding day.',
+    deposit_amount: 350,
+    deposit_method: 'instapay',
+    deposit_paid: true,
+    deposit_reference: 'IPAY-78912',
+    notes: 'Trial bridal look before wedding day. 350 EGP deposit paid via InstaPay.',
     created_at: '2026-10-28T09:00:00Z',
     calculated_commission: 595 // 35% of 1700
   },
@@ -651,8 +750,12 @@ export const initialAppointments: Appointment[] = [
     discount: 0,
     net_price: 1200,
     status: 'confirmed',
-    payment_status: 'pending',
-    notes: 'Confirmed via WhatsApp.',
+    payment_status: 'partially_paid',
+    deposit_amount: 250,
+    deposit_method: 'instapay',
+    deposit_paid: true,
+    deposit_reference: 'IPAY-99214',
+    notes: 'Confirmed via WhatsApp with 250 EGP InstaPay deposit.',
     created_at: '2026-10-29T11:20:00Z'
   },
   {
@@ -675,8 +778,12 @@ export const initialAppointments: Appointment[] = [
     discount: 50,
     net_price: 900,
     status: 'confirmed',
-    payment_status: 'pending',
-    notes: 'Soirée makeup for evening event.',
+    payment_status: 'partially_paid',
+    deposit_amount: 200,
+    deposit_method: 'vodafone_cash',
+    deposit_paid: true,
+    deposit_reference: 'VF-33214',
+    notes: 'Soirée makeup for evening event. 200 EGP deposit via Vodafone Cash.',
     created_at: '2026-10-27T15:40:00Z'
   },
   {
@@ -701,11 +808,43 @@ export const initialAppointments: Appointment[] = [
     net_price: 600,
     status: 'completed',
     payment_status: 'paid',
+    deposit_amount: 100,
+    deposit_method: 'instapay',
+    deposit_paid: true,
+    deposit_reference: 'IPAY-44120',
     notes: 'Delighted with results, gave 5 star review.',
     created_at: '2026-10-29T14:10:00Z',
     completed_at: '2026-10-30T11:25:00Z',
     calculated_commission: 210,
     inventory_deducted: true
+  },
+  {
+    id: 'appt-5',
+    code: 'APT-805',
+    customer_id: 'cust-2',
+    customer_name: 'Laila Mostafa',
+    customer_phone: '01229876543',
+    branch_id: 'branch-sabapasha',
+    service_id: 'serv-dermapen',
+    service_name_en: 'Dermapen Skin Rejuvenation',
+    service_name_ar: 'جلسة ديرمابن نضارة ومسام (Dermapen)',
+    technician_name: 'إدارة وتشغيل المركز (مباشر)',
+    room_name: 'Facial & Dermapen Suite',
+    date: '2026-10-31',
+    start_time: '12:00',
+    end_time: '13:00',
+    duration_minutes: 60,
+    price: 900,
+    discount: 0,
+    net_price: 900,
+    status: 'confirmed',
+    payment_status: 'partially_paid',
+    deposit_amount: 200,
+    deposit_method: 'instapay',
+    deposit_paid: true,
+    deposit_reference: 'IPAY-88219',
+    notes: 'عربون ٢٠٠ ج.م مدفوع إنستاباي. عمق السن 1.25mm للخدود و 0.75mm للجبهة. إيقاف الريتينول مؤكد.',
+    created_at: '2026-10-30T16:00:00Z'
   }
 ];
 
@@ -718,12 +857,12 @@ export const initialCashRegister: CashRegisterSession = {
   opened_by_user_name: 'Salma Ezzat',
   opened_at: '2026-10-30T09:30:00Z',
   status: 'open',
-  opening_balance: 2000,
+  opening_balance: 500, // Fixed 500 EGP drawer float as per operational study
   cash_sales: 2400,
   cash_expenses: 350,
   cash_withdrawals: 0,
   cash_deposits: 0,
-  expected_cash: 4050
+  expected_cash: 2550
 };
 
 // Initial Expenses
